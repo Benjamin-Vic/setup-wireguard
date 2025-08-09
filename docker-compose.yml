@@ -10,14 +10,15 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Paris
+      - SERVERURL=auto
       - SERVERPORT=51820
       - PEERS=3
       - PEERDNS=1.1.1.1
       - INTERNAL_SUBNET=10.13.13.0
-      - ALLOWEDIPS=10.13.13.1
+      - ALLOWEDIPS=10.13.13.1, 172.16.0.0/12
       - LOG_CONFS=false
     volumes:
-      - /path/to/wireguard/config:/config
+      - /srv/wireguard:/config
       - /lib/modules:/lib/modules
     ports:
       - 51820:51820/udp
