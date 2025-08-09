@@ -1,0 +1,23 @@
+# README — WireGuard (Docker) + SSH via docker0
+
+## 1) Start WireGuard
+
+In the folder with your `docker-compose.yml`:
+
+```bash
+docker compose up -d
+```
+
+## 2) SSH to the host through the tunnel
+
+```bash
+ssh <user>@172.17.0.1
+```
+
+### Find the host IP on Docker’s bridge
+
+```bash
+ip -4 addr show docker0 | awk '/inet /{print $2}' | cut -d/ -f1
+# typically: 172.17.0.1
+```
+> Note: Your WireGuard peer must allow the Docker subnet (e.g., `AllowedIPs = 10.13.13.1, 172.16.0.0/12`) to reach `docker0`.
